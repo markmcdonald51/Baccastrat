@@ -69,6 +69,6 @@ class StrategiesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def strategy_params
-      params.require(:strategy).permit(:name, :description, :martingale, :code, :number_of_decks_per_shoe)
+      params.require(:strategy).permit(:name, :description, :martingale, :code)
     end
 end

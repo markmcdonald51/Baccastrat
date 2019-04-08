@@ -1,5 +1,8 @@
 class Simulation < ApplicationRecord
-  belongs_to :strategy  
+  #belongs_to :strategy  
+  
+  has_many :strategy_simulations
+  has_many :strategies, through: :strategy_simulations , class_name: 'Strategy'
   has_many :games
   
   

@@ -3,11 +3,16 @@
   = f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present?
 
   .form-inputs
-    = f.association :strategy
-    = f.input :unit_cost
-    = f.input :bankroll_start
-    = f.input :current_bankroll
-    = f.input :number_of_decks_in_shoe, collection: (1..11).to_a, default: 6      
-
+  
+    .row
+      .col-md-6
+        = f.association :strategies
+        = f.input :number_of_decks_in_shoe, collection: (1..11).to_a, default: 6
+        
+      .col-md-3
+        = f.input :unit_cost, hint: 'chip amount, e.g., $10, $25, $50, $100'
+        = f.input :bankroll_start, hint: 'amount you want to test this with'
+        = f.input :current_bankroll
+              
   .form-actions
     = f.button :submit

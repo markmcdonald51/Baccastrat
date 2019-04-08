@@ -1,6 +1,6 @@
 h1 Listing simulations
 
-table
+table.table.bordered
   thead
     tr
       th Strategy
@@ -15,7 +15,7 @@ table
   tbody
     - @simulations.each do |simulation|
       tr
-        td = simulation.strategy
+        td = simulation.strategies.pluck(:name)
         td = simulation.unit_cost
         td = simulation.bankroll_start
         td = simulation.current_bankroll

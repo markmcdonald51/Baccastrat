@@ -16,6 +16,8 @@ class SimulatorWorker
       b.print
       puts "------ game #{count} "
       
+      binding.pry
+      
       if ! b.winner.nil?
         scores[b.winner.name] ||= 0
         scores[b.winner.name] += 1

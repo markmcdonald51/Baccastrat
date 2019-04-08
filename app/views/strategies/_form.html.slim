@@ -13,10 +13,7 @@
           
       
         = f.input :description, as: :trix_editor
-        
-      
 
-      
         = f.input :martingale, \
           collection: (1..10).to_a.inject({}){|h,k| h["#{k}x"] = k; h}, 
           as: :select,

@@ -69,6 +69,7 @@ class SimulationsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def simulation_params
-      params.require(:simulation).permit(:strategy_id, :unit_cost, :bankroll_start, :current_bankroll, :number_of_decks_in_shoe)
+      params.require(:simulation).permit(:unit_cost,
+       :bankroll_start, :current_bankroll, :number_of_decks_in_shoe, strategy_ids: [] )
     end
 end

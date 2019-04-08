@@ -2,7 +2,7 @@ p#notice = notice
 
 p
   strong Strategy:
-  = @simulation.strategy
+  = @simulation.strategies.pluck(:name).join(', ')
 p
   strong Unit cost:
   = @simulation.unit_cost

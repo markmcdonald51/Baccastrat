@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_07_082013) do
+ActiveRecord::Schema.define(version: 2019_04_08_124016) do
 
   create_table "games", force: :cascade do |t|
     t.string "player_card"
@@ -40,6 +40,15 @@ ActiveRecord::Schema.define(version: 2019_04_07_082013) do
     t.text "code"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "strategy_simulations", force: :cascade do |t|
+    t.integer "strategy_id"
+    t.integer "simulation_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["simulation_id"], name: "index_strategy_simulations_on_simulation_id"
+    t.index ["strategy_id"], name: "index_strategy_simulations_on_strategy_id"
   end
 
 end
