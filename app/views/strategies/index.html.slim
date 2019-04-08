@@ -1,0 +1,27 @@
+h1 Listing strategies
+
+table.table.bordered
+  thead
+    tr
+      th Name
+      th Description
+      th Martingale
+      th Code
+      th
+      th
+      th
+
+  tbody
+    - @strategies.each do |strategy|
+      tr
+        td = strategy.name
+        td = strategy.description
+        td = strategy.martingale
+        td = strategy.code
+        td = link_to 'Show', strategy
+        td = link_to 'Edit', edit_strategy_path(strategy)
+        td = link_to 'Destroy', strategy, data: { confirm: 'Are you sure?' }, method: :delete
+
+br
+
+= link_to 'New Strategy', new_strategy_path

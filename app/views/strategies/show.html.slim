@@ -1,0 +1,26 @@
+p#notice = notice
+
+p
+  strong Name: 
+  = @strategy.name
+  
+  
+p
+  strong Number of decks per shoe: 
+  = @strategy.number_of_decks_per_shoe
+  
+  
+p
+  strong Description:
+  = @strategy.description.html_safe
+p
+  strong Martingale:
+  = @strategy.martingale
+p
+  strong Code:
+  code
+    = @strategy.code
+
+=> link_to 'Edit', edit_strategy_path(@strategy)
+'|
+=< link_to 'Back', strategies_path

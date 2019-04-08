@@ -1,0 +1,18 @@
+p#notice = notice
+
+p
+  strong Player card:
+  = @game.player_card
+p
+  strong Dealer card:
+  = @game.dealer_card
+p
+  strong Winner:
+  = @game.winner
+p
+  strong Simulation:
+  = @game.simulation
+
+=> link_to 'Edit', edit_game_path(@game)
+'|
+=< link_to 'Back', games_path

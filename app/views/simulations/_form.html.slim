@@ -1,0 +1,13 @@
+= simple_form_for(@simulation) do |f|
+  = f.error_notification
+  = f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present?
+
+  .form-inputs
+    = f.association :strategy
+    = f.input :unit_cost
+    = f.input :bankroll_start
+    = f.input :current_bankroll
+    = f.input :number_of_decks_in_shoe, collection: (1..11).to_a, default: 6      
+
+  .form-actions
+    = f.button :submit

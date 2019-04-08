@@ -1,0 +1,31 @@
+= simple_form_for(@strategy) do |f|
+  = f.error_notification
+  = f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present?
+
+  .form-inputs
+ 
+    .row
+      .col-md-7
+        = f.input :name, label: 'Strategy Name', input_html: {class: 'form-control input-lg'},\
+          error: 'Name is mandatory, please specify one',
+          hint: '3x Underdog,  name', required: true,
+          placeholder: 'What is the name of this Strategy?'  
+          
+      
+        = f.input :description, as: :trix_editor
+        
+      
+
+      
+        = f.input :martingale, \
+          collection: (1..10).to_a.inject({}){|h,k| h["#{k}x"] = k; h}, 
+          as: :select,
+          hint: 'Martingale betting system is perhaps the most known among online gamblers. The system is a negative progression based on high probability of player losing several times in a row. The player bets one unit, in case of a loss he doubles the bet and bets again and so on until he wins. Each time the player wins he/she starts all over from 1 unit. The main idea of this system is the fact that the player ends up with a win of 1 betting unit.'
+
+    .row
+      .col-md-8
+        = f.input :code
+        / as: :summernote 
+
+    .form-actions
+      = f.button :submit
