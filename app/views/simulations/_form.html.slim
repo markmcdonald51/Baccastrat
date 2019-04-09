@@ -3,16 +3,19 @@
   = f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present?
 
   .form-inputs
-  
     .row
       .col-md-6
-        = f.association :strategies
-        = f.input :number_of_decks_in_shoe, collection: (1..11).to_a, default: 6
-        
+        = f.association :strategies, required: true, hint: 'select the strategies you want to test against'
+                
       .col-md-3
-        = f.input :unit_cost, hint: 'chip amount, e.g., $10, $25, $50, $100'
-        = f.input :bankroll_start, hint: 'amount you want to test this with'
-        = f.input :current_bankroll
+        = f.input :number_of_decks_in_shoe, collection: (1..11).to_a, default: 6, required: true  
+        
+        = f.input :unit_cost, hint: 'chip amount, e.g., $10, $25, $50, $100', \
+            collection: [5, 10, 25, 50, 100, 200, 400, 800, 1000,2000,5000], default: 25
+            
+        = f.input :bankroll_start, hint: 'amount of $ want to start with',  required: true, default: 1000
+        
+        = f.input :current_bankroll, disabled: true
               
   .form-actions
     = f.button :submit
