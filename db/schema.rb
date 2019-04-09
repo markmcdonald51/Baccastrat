@@ -29,6 +29,7 @@ ActiveRecord::Schema.define(version: 2019_04_08_124016) do
     t.integer "bankroll_start"
     t.integer "current_bankroll"
     t.integer "number_of_decks_in_shoe", default: 6
+    t.string "aasm_state"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["strategy_id"], name: "index_simulations_on_strategy_id"

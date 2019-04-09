@@ -1,5 +1,5 @@
 class SimulationsController < ApplicationController
-  before_action :set_simulation, only: [:show, :edit, :update, :destroy]
+  before_action :set_simulation, only: [:show, :edit, :update, :destroy, :run_simulation]
 
   # GET /simulations
   # GET /simulations.json
@@ -10,6 +10,10 @@ class SimulationsController < ApplicationController
   # GET /simulations/1
   # GET /simulations/1.json
   def show
+  end
+  
+  def run_simulation
+    @simulation.run!
   end
 
   # GET /simulations/new

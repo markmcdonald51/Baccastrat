@@ -5,6 +5,31 @@ class Simulation < ApplicationRecord
   has_many :strategies, through: :strategy_simulations , class_name: 'Strategy'
   has_many :games
   
+  
+  include AASM
+  
+  aasm do
+    state :sleeping, initial: true
+    state :running, :cleaning
+
+    event :run do
+      transitions from: :sleeping, to: :running, after: :run_simulation
+    end
+
+    event :clean do
+      transitions from: :running, to: :cleaning
+    end
+
+    event :sleep do
+      transitions from: [:running, :cleaning], to: :sleeping
+    end
+  end
+  
+  def run_simulation
+    SimulatorWorker.perform_async(self.id)
+  end
+  
+  
   def current_underdog 
     #last three games where winner > 2
     # select last three, group by winner where count > 1 and tie is 0

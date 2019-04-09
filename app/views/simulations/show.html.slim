@@ -19,5 +19,7 @@
       = @simulation.number_of_decks_in_shoe
 
     => link_to 'Edit', edit_simulation_path(@simulation)
-    '|
+   
     =< link_to 'Back', simulations_path
+    
+    =< link_to 'Run', run_simulation_simulation_path(@simulation), class: 'btn btn-primary', remote: true

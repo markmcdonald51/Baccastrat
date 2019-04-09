@@ -2,11 +2,11 @@ class SimulatorWorker
   include Sidekiq::Worker
   require "#{Rails.root}/lib/baccarat.rb"
   
-  def perform(strategy_id)
+  def perform(simulation_id)
     # Do something
-    @strategy = Strategy.find(strategy_id)
+    @simulation = Simulation.find(simulation_id)
    
-    n_decks = @strategy.number_of_decks_per_shoe
+    n_decks = @simulation.number_of_decks_in_shoe
     cards = (Deck.new(BaccaratRules::CARD_VALUES).cards * n_decks).shuffle
     b = Baccarat.new(cards)
     

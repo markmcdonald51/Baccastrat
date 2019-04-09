@@ -8,6 +8,7 @@ table.table.table-hover id='dttb'
       th Bankroll start
       th Current bankroll
       th Number of decks in shoe
+      th State
       th
       th
       th
@@ -20,6 +21,7 @@ table.table.table-hover id='dttb'
         td = simulation.bankroll_start
         td = simulation.current_bankroll
         td = simulation.number_of_decks_in_shoe
+        td = simulation.aasm_state
         td = link_to 'Show', simulation
         td = link_to 'Edit', edit_simulation_path(simulation)
         td = link_to 'Destroy', simulation, data: { confirm: 'Are you sure?' }, method: :delete

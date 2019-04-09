@@ -6,6 +6,7 @@ class CreateSimulations < ActiveRecord::Migration[5.2]
       t.integer :bankroll_start
       t.integer :current_bankroll
       t.integer :number_of_decks_in_shoe, default: 6
+      t.string  :aasm_state
 
       t.timestamps
     end

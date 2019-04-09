@@ -47,5 +47,18 @@ RSpec.describe Simulation, type: :model do
       simulation.games << [build(:game, :player_win), build(:game, :player_win),build(:game, :player_win)] 
       expect(simulation.current_underdog).to eq('banker')
     end  
+    
+    it 'should change states' do
+      #binding.pry
+      expect(simulation.may_run?).to be true
+      expect(simulation.run!).to be true
+      expect(simulation.may_run?).to be false
+      expect(simulation.running?).to be true
+      expect(simulation.may_sleep?).to be true
+      expect(simulation.sleep!).to be true
+      
+      #binding.pry
+    end 
+    
   end  
 end
