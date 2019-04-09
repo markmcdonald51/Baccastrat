@@ -3,7 +3,7 @@ class CreateGames < ActiveRecord::Migration[5.2]
     create_table :games do |t|
       t.string :player_card
       t.string :banker_card
-      t.string :winner
+      t.string :winner, index: true 
       t.references :simulation, foreign_key: true
 
       t.timestamps

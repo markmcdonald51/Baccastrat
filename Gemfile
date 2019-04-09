@@ -42,7 +42,7 @@ gem 'jquery-rails'
 gem 'trix-rails', require: 'trix'
 gem 'summernote-rails'
 gem 'codemirror-rails'
-
+gem 'jquery-datatables'
 gem 'sidekiq'
 
 group :development, :test do

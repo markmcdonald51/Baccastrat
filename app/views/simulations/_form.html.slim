@@ -6,6 +6,8 @@
     .row
       .col-md-6
         = f.association :strategies, required: true, hint: 'select the strategies you want to test against'
+      
+      .col-md-1  
                 
       .col-md-3
         = f.input :number_of_decks_in_shoe, collection: (1..11).to_a, default: 6, required: true  

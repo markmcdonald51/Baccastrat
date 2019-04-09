@@ -3,9 +3,12 @@ require 'rails_helper'
 RSpec.describe Simulation, type: :model do
 
   let(:strategy) { create(:strategy) }
-  let(:simulation) { create(:simulation, strategy: strategy) }
+  let(:simulation) { create(:simulation) }
  
-  
+  before(:each) do
+    simulation.strategies << strategy
+  end
+   
    describe "perform as expected on tests..." do
 
     it "should report nil when current_underdo is called as there needs to be at least 5 games" do

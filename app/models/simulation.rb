@@ -5,7 +5,6 @@ class Simulation < ApplicationRecord
   has_many :strategies, through: :strategy_simulations , class_name: 'Strategy'
   has_many :games
   
-  
   def current_underdog 
     #last three games where winner > 2
     # select last three, group by winner where count > 1 and tie is 0

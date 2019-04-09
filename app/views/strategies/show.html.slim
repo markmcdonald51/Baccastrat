@@ -1,20 +1,22 @@
-p#notice = notice
+.row
+  .col-md-10
+    p#notice = notice
 
-p
-  strong Name: 
-  = @strategy.name
+    p
+      strong Name: 
+      = @strategy.name
 
-p
-  strong Description:
-  = @strategy.description.html_safe
-p
-  strong Martingale:
-  = @strategy.martingale
-p
-  strong Code:
-  code
-    = @strategy.code
+    p
+      strong Description:
+      = @strategy.description.html_safe
+    p
+      strong Martingale:
+      = @strategy.martingale
+    p
+      strong Code:
+      code
+        = @strategy.code
 
-=> link_to 'Edit', edit_strategy_path(@strategy)
-'|
-=< link_to 'Back', strategies_path
+    => link_to 'Edit', edit_strategy_path(@strategy)
+    '|
+    =< link_to 'Back', strategies_path

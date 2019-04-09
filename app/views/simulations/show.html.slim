@@ -1,21 +1,23 @@
-p#notice = notice
+.row
+  .col-md-10
+    p#notice = notice
 
-p
-  strong Strategy:
-  = @simulation.strategies.pluck(:name).join(', ')
-p
-  strong Unit cost:
-  = @simulation.unit_cost
-p
-  strong Bankroll start:
-  = @simulation.bankroll_start
-p
-  strong Current bankroll:
-  = @simulation.current_bankroll
-p
-  strong Number of decks in shoe:
-  = @simulation.number_of_decks_in_shoe
+    p
+      strong Strategy:
+      = @simulation.strategies.pluck(:name).join(', ')
+    p
+      strong Unit cost:
+      = @simulation.unit_cost
+    p
+      strong Bankroll start:
+      = @simulation.bankroll_start
+    p
+      strong Current bankroll:
+      = @simulation.current_bankroll
+    p
+      strong Number of decks in shoe:
+      = @simulation.number_of_decks_in_shoe
 
-=> link_to 'Edit', edit_simulation_path(@simulation)
-'|
-=< link_to 'Back', simulations_path
+    => link_to 'Edit', edit_simulation_path(@simulation)
+    '|
+    =< link_to 'Back', simulations_path

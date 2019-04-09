@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(version: 2019_04_08_124016) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["simulation_id"], name: "index_games_on_simulation_id"
+    t.index ["winner"], name: "index_games_on_winner"
   end
 
   create_table "simulations", force: :cascade do |t|
