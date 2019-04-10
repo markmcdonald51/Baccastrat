@@ -1,5 +1,5 @@
 .row
-  .col-md-10
+  .col-md-7
     p#notice = notice
 
     p
@@ -23,3 +23,11 @@
     =< link_to 'Back', simulations_path
     
     =< link_to 'Run', run_simulation_simulation_path(@simulation), class: 'btn btn-primary', remote: true
+    
+
+  .col-md-5
+    - @simulation.games.each do |g|
+      li = link_to g.winner, g
+      - g.player_cards.split(',').each do |c|  
+        = get_card_sgv(c)
+      
