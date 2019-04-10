@@ -13,12 +13,12 @@
 ActiveRecord::Schema.define(version: 2019_04_08_124016) do
 
   create_table "games", force: :cascade do |t|
-    t.string "player_card"
-    t.string "banker_card"
+    t.string "player_cards"
+    t.integer "player_score"
+    t.string "banker_cards"
+    t.integer "banker_score"
     t.string "winner"
     t.integer "simulation_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
     t.index ["simulation_id"], name: "index_games_on_simulation_id"
     t.index ["winner"], name: "index_games_on_winner"
   end

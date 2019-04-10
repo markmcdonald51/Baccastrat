@@ -14,8 +14,11 @@ end
 class Deck
   attr_reader :cards
 
-  CARD_SUITS = ["Spades", "Clubs", "Hearts", "Diamonds"]
-  CARD_NAMES = ["Ace", *(2..10), "Jack", "Queen", "King"].map(&:to_s)
+  CARD_SUITS =      ["Spades", "Clubs", "Hearts", "Diamonds"]
+  #CARD_SUITS_SHORT =["S",      "C",     "H",      "D"]
+  
+  CARD_NAMES       = ["Ace", *(2..10), "Jack", "Queen", "King"].map(&:to_s)  
+  #CARD_NAMES_SHORT = ["A",   *(2..10), "J",    "Q",     "K"].map(&:to_s)
 
   def initialize(card_values)
     @cards = CARD_SUITS.flat_map do |suit|
@@ -102,11 +105,33 @@ class Baccarat
   end
 
   def play
+    # reinstaniate players to reset cards.
+    @dealer = Player.new(name: "Banker")
+    @player = Player.new(name: "Player")
+    
     2.times{ deal_card_to(@player) }
     2.times{ deal_card_to(@dealer) }
     deal_card_to(@player) if player_needs_extra_card?
     deal_card_to(@dealer) if dealer_needs_extra_card?
   end
+  
+  def player_results 
+    compact_cards(@player) 
+  end
+  
+  def banker_results
+    compact_cards(@dealer)
+  end
+
+  def compact_cards(player)
+    c = player.cards.map do |o| 
+      n = (o.name =~ /^\d/) ?  o.name : o.name.first
+      "#{n}-#{o.suit.first}"
+    end.join(',')
+    
+    { cards: c, score: BaccaratRules.hand_value(player.cards) }
+  end
+  
 
   def print
     # initial dealings

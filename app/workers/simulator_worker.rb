@@ -11,21 +11,36 @@ class SimulatorWorker
     b = Baccarat.new(cards)
     
     scores = {}
-    1.upto(32) do |count|
-      b.play
-      b.print
-      puts "------ game #{count} "
-      
-      binding.pry
-      
-      if ! b.winner.nil?
-        scores[b.winner.name] ||= 0
-        scores[b.winner.name] += 1
-      else
-        scores['tie'] ||= 0
-        scores['tie'] += 1
+    
+    begin
+      1.upto(32) do |count|
+        b.play
+        b.print
+        puts "------ game #{count} "
+        
+        if ! b.winner.nil?
+          scores[b.winner.name] ||= 0
+          scores[b.winner.name] += 1
+        else
+          scores['tie'] ||= 0
+          scores['tie'] += 1
+        end
+        
+        pr = b.player_results
+        br = b.banker_results
+       
+        @simulation.games.create(
+          player_cards: pr[:cards],
+          player_score: pr[:score],
+          banker_cards: br[:cards],
+          banker_score: br[:score],
+          winner:       b.winner.name.first)
+        
       end
-    end
-    puts scores
+      puts scores
+    rescue
+      puts 'rescued' 
+      @simulation.sleep! 
+    end  
   end
 end
