@@ -34,11 +34,12 @@ class SimulatorWorker
           player_score: pr[:score],
           banker_cards: br[:cards],
           banker_score: br[:score],
-          winner:       b.winner.name.first)
+          winner:       b.winner.nil? ? 'T' : b.winner.name.first)
         
       end
       puts scores
-    rescue
+    rescue => e
+      puts "#{ e } caused by #{ e.cause }"
       puts 'rescued' 
       @simulation.sleep! 
     end  

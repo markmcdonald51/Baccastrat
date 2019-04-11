@@ -30,11 +30,16 @@
       .row
         - [:player, :banker].each do |p|            
           div class=(p.to_s.first.upcase == g.winner ? 'col-md-6 bg-success' : 'col-md-6')
-            h4 = p.to_s.upcase 
-            h6 = g.send("#{p}_score")
-              
-            = link_to g.winner, g
-           
-            - g.send("#{p}_cards").split(',').each do |c|  
-              = get_card_sgv(c)
+            
+            .row
+              .col-md-8     
+                - g.send("#{p}_cards").split(',').each do |c|  
+                  = get_card_sgv(c)
+
+              .col-md-4
+                h6.strong = p.to_s.upcase 
+                h1.strong = g.send("#{p}_score")              
+                /= link_to g.winner, g
+          
+
           
