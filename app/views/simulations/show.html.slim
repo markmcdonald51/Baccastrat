@@ -1,5 +1,5 @@
 .row
-  .col-md-7
+  .col-md-4
     p#notice = notice
 
     p
@@ -25,9 +25,12 @@
     =< link_to 'Run', run_simulation_simulation_path(@simulation), class: 'btn btn-primary', remote: true
     
 
-  .col-md-5
+  .col-md-8
     - @simulation.games.each do |g|
-      li = link_to g.winner, g
-      - g.player_cards.split(',').each do |c|  
-        = get_card_sgv(c)
-      
+      .row
+        - [:player, :banker].each do |p|
+          .col-md-6
+            li = link_to g.winner, g
+            - g.send("#{p}_cards").split(',').each do |c|  
+              = get_card_sgv(c)
+            

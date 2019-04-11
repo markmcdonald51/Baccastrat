@@ -15,8 +15,8 @@ module SimulationsHelper
     suit = CARD_SUITS[CARD_SUITS_SHORT.index(s)].downcase
     name = CARD_NAMES[CARD_NAMES_SHORT.index(n)].downcase
        
-    img_name = "#{name}_of_#{suit}.sgv"    
+    img_name = "#{name}_of_#{suit}.svg"    
     
-    return image_tag("/sgv-cards/#{img_name}", height: '32', width: '32')
+    return image_tag("svg-cards/#{img_name}", height: '96', width: '70')
   end   
 end
