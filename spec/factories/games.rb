@@ -5,15 +5,15 @@ FactoryBot.define do
     winner {}
     
     trait :tie do
-      winner { 'tie'}
+      winner { 'T'}
     end
     
     trait :banker_win do
-      winner { 'banker' }
+      winner { 'B' }
     end  
     
     trait :player_win do
-      winner {'player'}
+      winner {'P'}
     end
     
   end  

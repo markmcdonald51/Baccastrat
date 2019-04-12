@@ -21,6 +21,18 @@ class SimulatorWorker
         #b.print
         puts "------ game #{count} "
         
+        game = @simulation.games.build
+        
+        if @simulation.position_on_a_run       
+        
+        elsif @simulation.current_underdog
+          ud = @simulation.current_underdog
+          puts "betting underdog #{@simulation.unit_cost} on #{ud}" 
+          game.bet_position = ud
+          game.bet_amount = @simulation.unit_cost
+          #binding.pry       
+        end
+        
         if ! b.winner.nil?
           scores[b.winner.name] ||= 0
           scores[b.winner.name] += 1
@@ -32,13 +44,17 @@ class SimulatorWorker
         pr = b.player_results
         br = b.banker_results
        
-        @simulation.games.create(
+        game.attributes = {
           player_cards: pr[:cards],
           player_score: pr[:score],
           banker_cards: br[:cards],
           banker_score: br[:score],
-          winner:       b.winner.nil? ? 'T' : b.winner.name.first)
-        
+          winner:       b.winner.nil? ? 'T' : b.winner.name.first
+        }
+        if game.bet_position.present?
+          game.bet_result = (game.bet_position == game.winner) ? "W" : "L"
+        end
+        game.save!
       end
       #puts scores
     rescue => e

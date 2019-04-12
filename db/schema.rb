@@ -17,6 +17,9 @@ ActiveRecord::Schema.define(version: 2019_04_08_124016) do
     t.integer "player_score"
     t.string "banker_cards"
     t.integer "banker_score"
+    t.integer "bet_amount", default: 0
+    t.string "bet_position"
+    t.string "bet_result"
     t.string "winner"
     t.integer "simulation_id"
     t.index ["simulation_id"], name: "index_games_on_simulation_id"

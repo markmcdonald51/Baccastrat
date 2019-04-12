@@ -40,8 +40,8 @@ class Simulation < ApplicationRecord
   end
   
   def oppsite(position)
-    return 'player' if position == 'banker'
-    return 'banker'
+    return 'P' if position == 'B'
+    return 'B'
   end
   
   def position_on_a_run
@@ -50,7 +50,7 @@ class Simulation < ApplicationRecord
   end
   
   def game_score
-    ud = games.where.not(winner: 'tie').order(id: :desc).limit(3) #.group(:winner).count
+    ud = games.where.not(winner: 'T').order(id: :desc).limit(3) #.group(:winner).count
     ud_hsh = ud.map{|o| o.winner}.each_with_object(Hash.new(0)) { |n,h| h[n] += 1 }
     ud_seq = ud.pluck(:winner)
     return [ud_seq, ud_hsh]

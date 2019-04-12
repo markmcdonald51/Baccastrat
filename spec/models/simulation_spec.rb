@@ -20,14 +20,14 @@ RSpec.describe Simulation, type: :model do
     it "should return the propper position to bet next" do
       simulation.games << [build(:game, :banker_win), build(:game, :banker_win), build(:game, :player_win)]
       simulation.games << [build(:game, :banker_win), build(:game, :banker_win), build(:game, :player_win)]
-      expect(simulation.current_underdog).to eq('player')
+      expect(simulation.current_underdog).to eq('P')
 
       simulation.games << [build(:game, :player_win), build(:game, :banker_win), build(:game, :banker_win)]
-      expect(simulation.current_underdog).to eq('player')
+      expect(simulation.current_underdog).to eq('P')
       
       # Flip to banker as UD
       simulation.games << [build(:game, :player_win), build(:game, :banker_win),build(:game, :player_win)]
-      expect(simulation.current_underdog).to eq('banker')
+      expect(simulation.current_underdog).to eq('B')
 
       #expect(simulation.current_underdog).to be_nil
         
@@ -37,15 +37,15 @@ RSpec.describe Simulation, type: :model do
       expect(simulation.position_on_a_run).to be_nil
       
       simulation.games << [build(:game, :banker_win), build(:game, :banker_win), build(:game, :banker_win)]
-      expect(simulation.position_on_a_run).to eq('banker')
+      expect(simulation.position_on_a_run).to eq('B')
       
       simulation.games << [build(:game, :banker_win),build(:game, :banker_win),build(:game, :player_win)]
       expect(simulation.position_on_a_run).to be_nil
 
-      expect(simulation.current_underdog).to eq('player')
+      expect(simulation.current_underdog).to eq('P')
       
       simulation.games << [build(:game, :player_win), build(:game, :player_win),build(:game, :player_win)] 
-      expect(simulation.current_underdog).to eq('banker')
+      expect(simulation.current_underdog).to eq('B')
     end  
     
     it 'should change states' do

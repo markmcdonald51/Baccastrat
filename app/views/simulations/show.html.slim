@@ -51,7 +51,10 @@
                 pre #{i+1}
           
           .col-md-3
-            GAME HERE    
+            - if g.bet_position.present?
+              h6.strong Bet: #{g.bet_amount}
+              h6.strong Position: #{g.bet_position}
+              h6.strong Result: #{g.bet_result}   
         
     .col-md-3        
       .row
