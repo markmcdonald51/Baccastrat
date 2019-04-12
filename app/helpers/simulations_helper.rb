@@ -12,7 +12,7 @@ module SimulationsHelper
     name = CARD_NAMES[CARD_NAMES_SHORT.index(n)].downcase       
     img_name = "#{name}_of_#{suit}.svg"           
     #return image_tag("svg-cards/#{img_name}", height: '96', width: '70')
-    return image_tag("svg-cards/#{img_name}", height: '71', width: '45')
+    return image_tag("svg-cards/#{img_name}", height: '86', width: '60')
   end   
   
   def get_cards_div(game: :game, player: :player)  
