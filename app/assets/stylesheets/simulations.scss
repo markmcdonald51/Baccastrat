@@ -1,3 +1,19 @@
 // Place all the styles related to the Simulations controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.banker_dot {
+  height: 25px;
+  width: 25px;
+  background-color: #ff1a1a;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.player_dot {
+  height: 25px;
+  width: 25px;
+  background-color: #0039e6;
+  border-radius: 50%;
+  display: inline-block;
+}

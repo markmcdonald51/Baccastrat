@@ -1,0 +1,8 @@
+table
+  - games.each do |g|
+    tr
+      td
+        .text-align:center
+          span class="#{g.try(:winner)}_dot"  
+            h6 #{g.try(:winner)}
+    

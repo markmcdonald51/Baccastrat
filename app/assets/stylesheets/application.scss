@@ -32,3 +32,42 @@ $theme-colors: ( "bootstrap": #563d7c, "simpleform": #00617f );
 @import "simple_form-bootstrap/simple_form-bootstrap";
 
 @import "datatables";
+
+
+.T_color {
+  background-color: #90EC91;
+}
+
+.P_color {
+  background-color: #90A0EC;
+}
+
+.B_color {
+  background-color: #FC8065;
+}
+
+.T_dot {
+  height: 20px;
+  width: 20px;
+  background-color: #dcf442;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+
+
+.B_dot {
+  height: 20px;
+  width: 20px;
+  background-color: #ff1a1a;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.P_dot {
+  height: 20px;
+  width: 20px;
+  background-color: #0039e6;
+  border-radius: 50%;
+  display: inline-block;
+}

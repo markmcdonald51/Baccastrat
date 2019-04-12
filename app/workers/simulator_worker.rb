@@ -5,6 +5,7 @@ class SimulatorWorker
   def perform(simulation_id)
     # Do something
     @simulation = Simulation.find(simulation_id)
+    @simulation.games.delete_all
    
     n_decks = @simulation.number_of_decks_in_shoe
     cards = (Deck.new(BaccaratRules::CARD_VALUES).cards * n_decks).shuffle
@@ -12,10 +13,12 @@ class SimulatorWorker
     
     scores = {}
     
+    num_of_games = cards.count / 6
+    
     begin
-      1.upto(32) do |count|
+      1.upto(num_of_games) do |count|
         b.play
-        b.print
+        #b.print
         puts "------ game #{count} "
         
         if ! b.winner.nil?
@@ -37,11 +40,11 @@ class SimulatorWorker
           winner:       b.winner.nil? ? 'T' : b.winner.name.first)
         
       end
-      puts scores
+      #puts scores
     rescue => e
       puts "#{ e } caused by #{ e.cause }"
       puts 'rescued' 
-      @simulation.sleep! 
     end  
+    @simulation.sleep! 
   end
 end

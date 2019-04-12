@@ -10,6 +10,7 @@ class SimulationsController < ApplicationController
   # GET /simulations/1
   # GET /simulations/1.json
   def show
+    @winners_count = @simulation.games.group(:winner).count
   end
   
   def run_simulation

@@ -1,45 +1,88 @@
-.row
-  .col-md-4
-    p#notice = notice
+.container-fluid 
 
-    p
-      strong Strategy:
-      = @simulation.strategies.pluck(:name).join(', ')
-    p
-      strong Unit cost:
-      = @simulation.unit_cost
-    p
-      strong Bankroll start:
-      = @simulation.bankroll_start
-    p
-      strong Current bankroll:
-      = @simulation.current_bankroll
-    p
-      strong Number of decks in shoe:
-      = @simulation.number_of_decks_in_shoe
 
-    => link_to 'Edit', edit_simulation_path(@simulation)
-   
-    =< link_to 'Back', simulations_path
-    
-    =< link_to 'Run', run_simulation_simulation_path(@simulation), class: 'btn btn-primary', remote: true
-    
+  .row
+    .col-md-2
+      p#notice = notice
 
-  .col-md-8
-    - @simulation.games.each do |g|
-      .row
-        - [:player, :banker].each do |p|            
-          div class=(p.to_s.first.upcase == g.winner ? 'col-md-6 bg-success' : 'col-md-6')
-            
-            .row
-              .col-md-8     
-                - g.send("#{p}_cards").split(',').each do |c|  
-                  = get_card_sgv(c)
+      p
+        strong Strategy:
+        = @simulation.strategies.pluck(:name).join(', ')
+      p
+        strong Unit cost:
+        = @simulation.unit_cost
+      p
+        strong Bankroll start:
+        = @simulation.bankroll_start
+      p
+        strong Current bankroll:
+        = @simulation.current_bankroll
+      p
+        strong Number of decks in shoe:
+        = @simulation.number_of_decks_in_shoe
 
-              .col-md-4
-                h6.strong = p.to_s.upcase 
-                h1.strong = g.send("#{p}_score")              
-                /= link_to g.winner, g
+      => link_to 'Edit', edit_simulation_path(@simulation)   
+      =< link_to 'Back', simulations_path     
+      =< link_to 'Run', run_simulation_simulation_path(@simulation), class: 'btn btn-primary', remote: true
+      
+
+    .col-md-7
+      - @simulation.games.each_with_index do |g,i|
+        .row           
+          div class="col-md-4 #{get_winner_class(player: 'player', game: g)}"     
+            .row                
+              .col-md-9
+                = get_cards_div(game: g, player: :player)  
+
+              .col-md-3
+                h7.strong PLAYER 
+                h2.strong = g.player_score          
+                          
+          div class="col-md-5 #{get_winner_class(player: 'banker', game: g)}"            
+            .row                  
+              .col-md-3
+                h7.strong BANKER
+                h2.strong.text-center = g.banker_score           
+                        
+              .col-md-8
+                = get_cards_div(game: g, player: 'banker')  
+           
+              .col-1-md.bg-light
+                pre #{i+1}
           
+          .col-md-3
+            GAME HERE    
+        
+    .col-md-3        
+      .row
+        .col-md-12
+          - if @winners_count.present?
+            table.table.table-bordered
+              tr
+                td 
+                  h4 Banker: 
+                td 
+                  h4 #{@winners_count['B']}
+              tr  
+                td 
+                  h4 Player: 
+                td 
+                  h4 #{@winners_count['P']}
+              tr 
+                td 
+                  h4 Tie: 
+                td 
+                  h4 #{@winners_count['T']}
 
+      .row
+        .col-md-12
+          table
+            tr
+              - @simulation.games.in_groups_of(6).each do |g| 
+                td = render partial: 'bead_plate', locals: { games: g}
+        
+        
+        
+                
+      
           
