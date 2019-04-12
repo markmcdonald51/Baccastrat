@@ -31,12 +31,12 @@
         .row           
           div class="col-md-4 #{get_winner_class(player: 'player', game: g)}"     
             .row                
-              .col-md-9
+              .col-md-8
                 = get_cards_div(game: g, player: :player)  
 
-              .col-md-3
+              .col-md-4
                 h7.strong PLAYER 
-                h2.strong = g.player_score          
+                h2.strongt.text-center = g.player_score          
                           
           div class="col-md-5 #{get_winner_class(player: 'banker', game: g)}"            
             .row                  
@@ -57,22 +57,22 @@
       .row
         .col-md-12
           - if @winners_count.present?
-            table.table.table-bordered
+            table.table.table-condensed
               tr
                 td 
-                  h4 Banker: 
+                  h5 Banker: 
                 td 
-                  h4 #{@winners_count['B']}
+                  h5 #{@winners_count['B']}
               tr  
                 td 
-                  h4 Player: 
+                  h5 Player: 
                 td 
-                  h4 #{@winners_count['P']}
+                  h5 #{@winners_count['P']}
               tr 
                 td 
-                  h4 Tie: 
+                  h5 Tie: 
                 td 
-                  h4 #{@winners_count['T']}
+                  h5 #{@winners_count['T']}
 
       .row
         .col-md-12
