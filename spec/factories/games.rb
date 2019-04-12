@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :game do  
-    player_card {}
-    banker_card {}
+    player_cards {}
+    banker_cards {}
     winner {}
     
     trait :tie do

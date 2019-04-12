@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :simulation do   
-    unit_cost { 25 }
+    unit_cost { 10 }
     bankroll_start {500}
     current_bankroll {0}
     number_of_decks_in_shoe { 6 }

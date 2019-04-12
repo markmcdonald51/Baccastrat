@@ -24,13 +24,12 @@ class SimulatorWorker
         game = @simulation.games.build
         
         if @simulation.position_on_a_run       
-        
+          puts "on a run!!! need to do something but nothing for now"
         elsif @simulation.current_underdog
           ud = @simulation.current_underdog
           puts "betting underdog #{@simulation.unit_cost} on #{ud}" 
           game.bet_position = ud
-          game.bet_amount = @simulation.unit_cost
-          #binding.pry       
+          game.bet_amount = @simulation.martingale_wager
         end
         
         if ! b.winner.nil?
@@ -51,8 +50,9 @@ class SimulatorWorker
           banker_score: br[:score],
           winner:       b.winner.nil? ? 'T' : b.winner.name.first
         }
-        if game.bet_position.present?
+        if game.bet_position.present?        
           game.bet_result = (game.bet_position == game.winner) ? "W" : "L"
+          game.bet_result = 'T' if  game.winner == 'T'
         end
         game.save!
       end

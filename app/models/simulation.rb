@@ -29,6 +29,22 @@ class Simulation < ApplicationRecord
     SimulatorWorker.perform_async(self.id)
   end
   
+  def martingale_wager
+    #r = games.where.not(bet_result: 'T').pluck(:bet_result).last(4)
+    r = games.where.not(bet_result: 'T').limit(4).order(:id).pluck(:bet_result)
+ 
+    bet_amt = unit_cost
+
+    r.each_with_index do |result,i|
+      if result == 'W'
+        return bet_amt * (i + 1)
+      else
+        bet_amt = bet_amt * (i + 1)
+      end  
+    end
+    puts "Martingale: #{bet_amt}"
+    return bet_amt
+  end
   
   def current_underdog 
     #last three games where winner > 2

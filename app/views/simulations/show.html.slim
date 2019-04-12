@@ -27,12 +27,17 @@
     .col-md-4
       table
         tr
-          - @simulation.games.in_groups_of(6).each do |g| 
-     
-            td = render partial: 'bead_plate', locals: { games: g}      
-  
+          - @simulation.games.in_groups_of(6).each do |g|    
+            td = render partial: 'bead_plate', locals: { games: g} 
+            
     .col-md-4
-    
+      /
+        table
+          tr
+            - last_winner = nil 
+            - @simulation.games.each do |g|
+              - last_winner = g.winner if last_winner.blank?
+              = render partial: 'big_road'
     
     .col-md-2      
       .row
@@ -65,23 +70,22 @@
   .row
     .col-md-9
       - @simulation.games.each_with_index do |g,i|
-        .row           
-          div class="col-md-5 #{get_winner_class(player: 'player', game: g)}"     
+        .row              
+          .col-md-4  
             .row                
-              .col-md-8
+              .col-md-8.bg-white
                 = get_cards_div(game: g, player: :player)  
-
-              .col-md-4
+              div class="col-md-4 #{get_winner_class(player: 'player', game: g)}"
                 h7.strong PLAYER 
-                h3.strongt.text-center = g.player_score          
-                          
-          div class="col-md-5 #{get_winner_class(player: 'banker', game: g)}"            
+                h4.strongt.text-center = g.player_score          
+                         
+          .col-md-4            
             .row                  
-              .col-md-3
+              div class="col-md-3 #{get_winner_class(player: 'banker', game: g)}"
                 h7.strong BANKER
-                h3.strong.text-center = g.banker_score           
+                h4.strong.text-center = g.banker_score           
                         
-              .col-md-8
+              .col-md-8.bg-white
                 = get_cards_div(game: g, player: 'banker')  
            
               .col-1-md.bg-light
@@ -89,12 +93,8 @@
           
           .col-md-3
             - if g.bet_position.present?
-              table.table.table-condensed
-                tr
-                  td Bet $#{g.bet_amount} on #{g.bet_position}
-                tr  
-                  td Result: 
-                  td = g.bet_result   
+             p.small Bet $#{g.bet_amount} on #{g.bet_position}
+             p.small Result:  #{g.bet_result}   
         
 
 

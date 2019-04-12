@@ -49,16 +49,22 @@ RSpec.describe Simulation, type: :model do
     end  
     
     it 'should change states' do
-      #binding.pry
       expect(simulation.may_run?).to be true
       expect(simulation.run!).to be true
       expect(simulation.may_run?).to be false
       expect(simulation.running?).to be true
       expect(simulation.may_sleep?).to be true
       expect(simulation.sleep!).to be true
-      
-      #binding.pry
     end 
     
+    
+     it 'should add martangle' do
+      simulation.games << [build(:game, :banker_win), build(:game, :banker_win), build(:game, :player_win)]
+      simulation.games << [build(:game, :banker_win), build(:game, :banker_win), build(:game, :player_win)]
+      expect(simulation.martingale_wager).to eq(simulation.unit_cost)     
+      
+      simulation.games << [build(:game, :banker_win), build(:game, :banker_win), build(:game, :banker_win)]
+                 
+    end
   end  
 end
