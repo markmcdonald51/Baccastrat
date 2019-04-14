@@ -34,12 +34,13 @@ class Simulation < ApplicationRecord
     r = games.where.not(bet_result: 'T').limit(4).order(:id).pluck(:bet_result)
  
     bet_amt = unit_cost
+    # Return the bet amount unless martingale > 1
+    return bet_amt unless martingale > 0
 
-    r.each_with_index do |result,i|
-      if result == 'W'
-        return bet_amt * (i + 1)
-      else
-        bet_amt = bet_amt * (i + 1)
+    r.each_with_index do |result,i|      
+        return bet_amt * (i + 1) && i == 0 if result == 'W'
+        return bet_amt if result == 'W'
+        bet_amt = bet_amt * (i + 1)       
       end  
     end
     puts "Martingale: #{bet_amt}"
