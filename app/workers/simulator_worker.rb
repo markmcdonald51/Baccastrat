@@ -1,5 +1,6 @@
 class SimulatorWorker
   include Sidekiq::Worker
+  include BaccaratStrategies
   require "#{Rails.root}/lib/baccarat.rb"
   
   def perform(simulation_id)
@@ -12,7 +13,6 @@ class SimulatorWorker
     b = Baccarat.new(cards)
     
     scores = {}
-    
     num_of_games = cards.count / 6
     
     @simulation.current_bankroll ||= @simulation.bankroll_start 
@@ -21,10 +21,14 @@ class SimulatorWorker
       1.upto(num_of_games) do |count|
         b.play
         #b.print
-        puts "------ game #{count} "
-        
+        puts "------ game #{count} "        
         game = @simulation.games.build
         
+        # Call Strategy
+        underdog(game)
+        
+
+=begin
         if @simulation.position_on_a_run       
           puts "on a run!!! need to do something but nothing for now"
           game.bet_position = @simulation.position_on_a_run
@@ -36,7 +40,7 @@ class SimulatorWorker
           game.bet_position = ud
           game.bet_amount = @simulation.martingale_wager
         end
-        
+=end        
         if ! b.winner.nil?
           scores[b.winner.name] ||= 0
           scores[b.winner.name] += 1
