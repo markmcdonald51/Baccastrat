@@ -59,11 +59,19 @@ RSpec.describe Simulation, type: :model do
     
     
      it 'should add martangle' do
-      simulation.games << [build(:game, :banker_win), build(:game, :banker_win), build(:game, :player_win)]
-      simulation.games << [build(:game, :banker_win), build(:game, :banker_win), build(:game, :player_win)]
+      simulation.games << [build(:game, :banker_win, :bet_result_win), 
+        build(:game, :banker_win,:bet_result_win),
+        build(:game, :player_win,:bet_result_win)]
+      
+      simulation.games << [build(:game, :banker_win,:bet_result_win), 
+        build(:game, :banker_win, :bet_result_win), build(:game, :player_win, :bet_result_win)]
       expect(simulation.martingale_wager).to eq(simulation.unit_cost)     
       
-      simulation.games << [build(:game, :banker_win), build(:game, :banker_win), build(:game, :banker_win)]
+      simulation.games << [build(:game, :player_win,:bet_result_lose),
+         build(:game, :banker_win,:bet_result_lose), build(:game, :banker_win,:bet_result_lose)]
+       
+        
+      expect(simulation.martingale_wager).to eq(simulation.unit_cost * 2)
                  
     end
   end  

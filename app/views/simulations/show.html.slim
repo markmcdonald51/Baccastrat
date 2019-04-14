@@ -63,7 +63,12 @@
                 td 
                   h5 Tie: 
                 td 
-                  h5 #{@simulation.games.group(:bet_result).count}    
+                  h5 #{@simulation.games.group(:bet_result).count}   
+                
+              tr
+                td 
+                  p.small end bankroll #{@simulation.current_bankroll}
+                  p.small win/loss $#{@simulation.current_bankroll - @simulation.bankroll_start }
   
   
   
@@ -91,13 +96,20 @@
               .col-1-md.bg-light
                 pre #{i+1}
           
-          .col-md-3
+          .col-md-1
             - if g.bet_position.present?
              p.small Bet $#{g.bet_amount} on #{g.bet_position}
              p.small Result:  #{g.bet_result}   
         
-
-
+          .col-md-1
+            - if g.bet_result == 'W'      
+              / h3.text-success  WIN            
+              h1.text-success $#{g.bet_amount * 2} 
+            
+            -elsif g.bet_result == 'L' 
+              / h3.text-danger LOSE            
+              h1.text-danger $#{g.bet_amount} 
+        
 
         
         

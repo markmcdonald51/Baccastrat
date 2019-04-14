@@ -5,6 +5,8 @@ class Simulation < ApplicationRecord
   has_many :strategies, through: :strategy_simulations , class_name: 'Strategy'
   has_many :games
   
+  validates_presence_of :bankroll_start, :unit_cost, :number_of_decks_in_shoe
+  
   
   include AASM
   
@@ -30,21 +32,20 @@ class Simulation < ApplicationRecord
   end
   
   def martingale_wager
-    #r = games.where.not(bet_result: 'T').pluck(:bet_result).last(4)
-    r = games.where.not(bet_result: 'T').limit(4).order(:id).pluck(:bet_result)
- 
-    bet_amt = unit_cost
-    # Return the bet amount unless martingale > 1
-    return bet_amt unless martingale > 0
+    martinagle = 4
+  
+    bet_amount = unit_cost   
+    bet_res = games.where.not(bet_result: 'T').limit(martinagle).order(id: :desc)
+    r = bet_res.map(&:bet_result)
+       
+    last_bet = bet_res.first
+    last_win_idx = r.index('W')
 
-    r.each_with_index do |result,i|      
-        return bet_amt * (i + 1) && i == 0 if result == 'W'
-        return bet_amt if result == 'W'
-        bet_amt = bet_amt * (i + 1)       
-      end  
-    end
-    puts "Martingale: #{bet_amt}"
-    return bet_amt
+    return bet_amount if r.first == 'W' or martinagle == 0 or  last_win_idx.blank?  
+    #return bet_amount if (martinagle == 0 or last_win_idx.blank? or last_win_idx >= martinagle)
+    bet_amount = last_bet.bet_amount * 2  
+
+    return bet_amount
   end
   
   def current_underdog 
