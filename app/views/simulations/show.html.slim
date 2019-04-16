@@ -31,14 +31,9 @@
             td = render partial: 'bead_plate', locals: { games: g} 
             
     .col-md-4
-      /
-        table
-          tr
-            - last_winner = nil 
-            - @simulation.games.each do |g|
-              - last_winner = g.winner if last_winner.blank?
-              = render partial: 'big_road'
-    
+      table
+        = render partial: 'big_road', locals: { winners: @simulation.games.pluck(:winner), i: 0 } 
+        
     .col-md-2      
       .row
         .col-md-12

@@ -4,7 +4,6 @@ class SimulatorWorker
   require "#{Rails.root}/lib/baccarat.rb"
   
   def perform(simulation_id)
-    # Do something
     @simulation = Simulation.find(simulation_id)
     @simulation.games.delete_all
    
@@ -25,36 +24,13 @@ class SimulatorWorker
         game = @simulation.games.build
         
         # Call Strategy
-        underdog(game)
+        #underdog_Nx(game)
+        easy_baccarat(game)
         
-
-=begin
-        if @simulation.position_on_a_run       
-          puts "on a run!!! need to do something but nothing for now"
-          game.bet_position = @simulation.position_on_a_run
-          game.bet_amount   = @simulation.unit_cost
-          
-        elsif @simulation.current_underdog
-          ud = @simulation.current_underdog
-          puts "betting underdog #{@simulation.unit_cost} on #{ud}" 
-          game.bet_position = ud
-          game.bet_amount = @simulation.martingale_wager
-        end
-=end        
-        if ! b.winner.nil?
-          scores[b.winner.name] ||= 0
-          scores[b.winner.name] += 1
-        else
-          scores['tie'] ||= 0
-          scores['tie'] += 1
-        end
         
         pr = b.player_results
         br = b.banker_results
-        
-        #NEW when you win  [Easyway Baccarat]
-        # 1,3,2,4 (increase/decrease unit_amount)
-       
+         
         game.attributes = {
           player_cards: pr[:cards],
           player_score: pr[:score],
@@ -62,6 +38,7 @@ class SimulatorWorker
           banker_score: br[:score],
           winner:       b.winner.nil? ? 'T' : b.winner.name.first
         }
+        
         if game.bet_position.present?        
           game.bet_result = (game.bet_position == game.winner) ? "W" : "L"
           game.bet_result = 'T' if  game.winner == 'T'
@@ -73,7 +50,6 @@ class SimulatorWorker
         end
         game.save!
       end
-      #puts scores
     rescue => e
       puts "#{ e } caused by #{ e.cause }"
       puts 'rescued' 

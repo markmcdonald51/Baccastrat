@@ -42,15 +42,11 @@ class Simulation < ApplicationRecord
     last_win_idx = r.index('W')
 
     return bet_amount if r.first == 'W' or martinagle == 0 or  last_win_idx.blank?  
-    #return bet_amount if (martinagle == 0 or last_win_idx.blank? or last_win_idx >= martinagle)
     bet_amount = last_bet.bet_amount * 2  
-
     return bet_amount
   end
   
   def current_underdog 
-    #last three games where winner > 2
-    # select last three, group by winner where count > 1 and tie is 0
     return nil if games.count < 5
     ud_seq, ud_hsh = game_score
     dominant = ud_hsh.invert.max&.last
