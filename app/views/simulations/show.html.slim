@@ -1,3 +1,7 @@
+javascript:
+  var winners = #{@winners_json.html_safe}
+ 
+
 .container-fluid 
   .row
     .col-md-2
@@ -22,6 +26,8 @@
       => link_to 'Edit', edit_simulation_path(@simulation)   
       =< link_to 'Back', simulations_path     
       =< link_to 'Run', run_simulation_simulation_path(@simulation), class: 'btn btn-primary', remote: true
+      
+      =< link_to 'Test JS', '#', id: 'show_winners', remote: true
            
 
     .col-md-4
@@ -32,7 +38,7 @@
             
     .col-md-4
       table
-        = render partial: 'big_road', locals: { winners: @simulation.games.pluck(:winner), i: 0 } 
+        / = render partial: 'big_road', locals: { winners: @simulation.games.pluck(:winner), i: 0 } 
         
     .col-md-2      
       .row
@@ -70,9 +76,9 @@
   .row
     .col-md-9
       - @simulation.games.each_with_index do |g,i|
-        .row              
+        .row id="#{dom_id(g)}"              
           .col-md-4  
-            .row                
+            .row.player                
               .col-md-8.bg-white
                 = get_cards_div(game: g, player: :player)  
               div class="col-md-4 #{get_winner_class(player: 'player', game: g)}"
@@ -80,7 +86,7 @@
                 h4.strongt.text-center = g.player_score          
                          
           .col-md-4            
-            .row                  
+            .row.banker                  
               div class="col-md-3 #{get_winner_class(player: 'banker', game: g)}"
                 h7.strong BANKER
                 h4.strong.text-center = g.banker_score           

@@ -11,6 +11,8 @@ class SimulationsController < ApplicationController
   # GET /simulations/1.json
   def show
     @winners_count = @simulation.games.group(:winner).count
+    # @json_ary = json.array! @simulation.games, :id, :winner
+    @winners_json = @simulation.games.to_json
   end
   
   def run_simulation
