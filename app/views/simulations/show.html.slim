@@ -1,9 +1,11 @@
-javascript:
-  var winners = #{@winners_json.html_safe}
- 
-
+/
+  javascript:
+    var winners = #{@winners_json.html_safe}
+  
+  
 .container-fluid 
   .row
+    = hidden_field_tag 'all_game_results', '#', data: { games: @simulation.games.to_json}
     .col-md-2
       p#notice = notice
 
@@ -78,7 +80,7 @@ javascript:
       - @simulation.games.each_with_index do |g,i|
         .row id="#{dom_id(g)}"              
           .col-md-4  
-            .row.player                
+            #player.row.player                
               .col-md-8.bg-white
                 = get_cards_div(game: g, player: :player)  
               div class="col-md-4 #{get_winner_class(player: 'player', game: g)}"
@@ -86,8 +88,8 @@ javascript:
                 h4.strongt.text-center = g.player_score          
                          
           .col-md-4            
-            .row.banker                  
-              div class="col-md-3 #{get_winner_class(player: 'banker', game: g)}"
+            #banker.row.banker                  
+              div  class="col-md-3 #{get_winner_class(player: 'banker', game: g)}"
                 h7.strong BANKER
                 h4.strong.text-center = g.banker_score           
                         
@@ -98,18 +100,19 @@ javascript:
                 pre #{i+1}
           
           .col-md-1
-            - if g.bet_position.present?
-             p.small Bet $#{g.bet_amount} on #{g.bet_position}
-             p.small Result:  #{g.bet_result}   
+            /
+              - if g.bet_position.present?
+               p.small Bet $#{g.bet_amount} on #{g.bet_position}
+               p.small Result:  #{g.bet_result}   
         
           .col-md-1
             - if g.bet_result == 'W'      
               / h3.text-success  WIN            
-              h1.text-success $#{g.bet_amount * 2} 
+              / h1.text-success $#{g.bet_amount * 2} 
             
             -elsif g.bet_result == 'L' 
               / h3.text-danger LOSE            
-              h1.text-danger $#{g.bet_amount} 
+              / h1.text-danger $#{g.bet_amount} 
         
 
         

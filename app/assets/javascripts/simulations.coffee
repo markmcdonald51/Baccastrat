@@ -2,13 +2,21 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
+###
+class Baccarat 
+   constructor: (data) ->
+    @daaename
+###
 
 
 win_list = (a) ->
-  return a.map (w) -> w.winner
-  
-#underdog = (idx) ->
-#  return win_list[-3..idx]
+  return a.map (w) -> w.winner 
+
+
+underdog = (ary, idx) ->
+  filtered = win_list(ary).filter (p) -> p != 'T' 
+  return count_elements(filtered[-3..])
+
 
 count_elements  = (ary) -> 
   resultSummary = {}
@@ -17,14 +25,17 @@ count_elements  = (ary) ->
       resultSummary[value] = 0
       console.log(value)
     resultSummary[value] += 1
-  
+ 
   return resultSummary
   
 
 $ -> 
   console.log("DOM is ready")
+  
+  games = $('#all_game_results').data('games')
 
   $("#show_winners").on "click", ->
     console.log("show_winners clicked!")
-    console.log(count_elements(win_list(winners)))
-
+    console.log(underdog(games))
+    
+   
