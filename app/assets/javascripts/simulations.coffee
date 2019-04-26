@@ -9,15 +9,20 @@ class Baccarat
 ###
 
 
-win_list = (a) ->
-  return a.map (w) -> w.winner 
+win_list = (a) -> a.map (w) -> w.winner 
+  
+
+sort_hash_vars = (hsh) ->
+  keys = Object.keys(hsh).sort (a, b) -> hsh[b] - hsh[a] 
 
 
 underdog = (ary, idx) ->
-  filtered = win_list(ary).filter (p) -> p != 'T' 
-  return count_elements(filtered[-3..])
-
-
+  filtered = win_list(ary).filter (p) -> p != 'T'
+  h = count_elements(filtered[-3..])
+  console.log("the counted ary is")
+  console.log(h)
+  return sort_hash_vars(h)[1]
+  
 count_elements  = (ary) -> 
   resultSummary = {}
   $.each ary, (index, value) ->
@@ -25,17 +30,18 @@ count_elements  = (ary) ->
       resultSummary[value] = 0
       console.log(value)
     resultSummary[value] += 1
- 
+
   return resultSummary
   
 
 $ -> 
   console.log("DOM is ready")
-  
   games = $('#all_game_results').data('games')
 
   $("#show_winners").on "click", ->
     console.log("show_winners clicked!")
-    console.log(underdog(games))
+    console.log("the underdog is #{underdog(games)}")
+    # console.log(sort_hash_vars(underdog(games)))
+    
     
    
