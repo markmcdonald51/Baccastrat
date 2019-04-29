@@ -13,19 +13,29 @@ RSpec.describe Roulette, type: :model do
     end    
     
     it 'first_12 should return true' do    
-      expect(r.first_12_win?).to be true
+      expect(Roulette.first_12_win?(r.number_drawn)).to be true
     end    
     
     it 'should draw 100 times' do
       1.upto(100) do |n|
-        test =  create(:roulette, number_drawn: Roulette::draw_number )
+        test =  create(:roulette, number_drawn: Roulette.draw_number )
         puts "#{n}] #{test.number_drawn}"
-        if test.first_12_win?
+        if Roulette.first_12_win?(test.number_drawn)
           puts "win first 12: #{test.win_amount}"   
         end
       end
       true
     end
+
+    it 'should return underdog' do
+      1.upto(10) do |n|
+        create(:roulette)
+      end        
+      ud = Roulette.underdog
+      expect(ud).to include(:second_12, :third_12)
+      expect(ud.count).to eql(2)  
+    end 
+    
   end
 end
 
