@@ -23,8 +23,9 @@ class Roulette < ApplicationRecord
     def underdog(depth: 7)
       underdogs = []
       lb = Roulette.last(depth).pluck(:number_drawn)
+      puts lb
       [:first_12, :second_12,:third_12].map do |m|
-        if (lb.detect{|n| send(:"#{m}_win?", n)}).blank?
+        if (lb.detect{|n| send(:"#{m}_win?", n)}).blank?      
           underdogs << m
         end       
       end
@@ -36,7 +37,5 @@ class Roulette < ApplicationRecord
     number_drawn = Roulette.draw_number
   end
 
-  
 
-  
 end

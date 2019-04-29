@@ -36,6 +36,15 @@ RSpec.describe Roulette, type: :model do
       expect(ud.count).to eql(2)  
     end 
     
+    it 'should return underdog for respected item' do
+      1.upto(6) { FactoryBot.create(:roulette, number_drawn: 2)  }
+      1.upto(6) { FactoryBot.create(:roulette, number_drawn: 13) }
+      1.upto(6) { FactoryBot.create(:roulette, number_drawn: 26) }
+      
+      binding.pry
+      ud = Roulette.underdog
+      expect(ud).to include(:second_12, :third_12)         
+    end
   end
 end
 
