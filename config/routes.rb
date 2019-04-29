@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :roulettes
   resources :strategies
   resources :simulations do
     get 'run_simulation', on: :member

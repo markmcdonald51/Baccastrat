@@ -1,0 +1,15 @@
+p#notice = notice
+
+p
+  strong Bet amount:
+  = @roulette.bet_amount
+p
+  strong Sector:
+  = @roulette.sector
+p
+  strong Result:
+  = @roulette.result
+
+=> link_to 'Edit', edit_roulette_path(@roulette)
+'|
+=< link_to 'Back', roulettes_path

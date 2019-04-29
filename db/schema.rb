@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_08_124016) do
+ActiveRecord::Schema.define(version: 2019_04_28_072420) do
 
   create_table "games", force: :cascade do |t|
     t.string "player_cards"
@@ -18,12 +18,23 @@ ActiveRecord::Schema.define(version: 2019_04_08_124016) do
     t.string "banker_cards"
     t.integer "banker_score"
     t.integer "bet_amount", default: 0
+    t.integer "bet_units", default: 0
     t.string "bet_position"
     t.string "bet_result"
     t.string "winner"
     t.integer "simulation_id"
     t.index ["simulation_id"], name: "index_games_on_simulation_id"
     t.index ["winner"], name: "index_games_on_winner"
+  end
+
+  create_table "roulettes", force: :cascade do |t|
+    t.integer "bet_amount"
+    t.integer "win_amount"
+    t.string "sector"
+    t.string "result"
+    t.integer "number_drawn"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "simulations", force: :cascade do |t|

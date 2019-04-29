@@ -1,0 +1,12 @@
+h1 Listing Roulettes
+
+table#dttb-roulettes.responsive.nowrap.table.table-hover data-sort="true" data-source="#{url_for(format: :json)}"
+  thead
+    tr
+      th data-data="bet_amount" Bet amount
+      th data-data="sector" Sector
+      th data-data="result" Result
+      th data-data="url" data-orderable="false" data-class-name="all" data-searchable="false" class="skip-export" width="100px"
+
+
+= link_to 'New Roulette', new_roulette_path
