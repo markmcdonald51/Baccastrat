@@ -14,8 +14,7 @@ RSpec.describe Simulation, type: :model do
     it "should report nil when current_underdo is called as there needs to be at least 5 games" do
       simulation.games << [build(:game, :banker_win), build(:game, :banker_win), build(:game, :player_win)]
       expect(simulation.current_underdog).to be_nil
-    end
-    
+    end   
     
     it "should return the propper position to bet next" do
       simulation.games << [build(:game, :banker_win), build(:game, :banker_win), build(:game, :player_win)]

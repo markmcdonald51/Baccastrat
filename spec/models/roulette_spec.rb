@@ -37,14 +37,30 @@ RSpec.describe Roulette, type: :model do
     end 
     
     it 'should return underdog for respected item' do
-      1.upto(6) { FactoryBot.create(:roulette, number_drawn: 2) }
-      expect(Roulette.underdog(depth:3)).to include(:second_12, :third_12)
+      3.times { FactoryBot.create(:roulette, number_drawn: 2) }
+      expect(Roulette.underdog(depth:3, min_draws: 3)).
+        to include(:second_12, :third_12)
+
+      1.times { FactoryBot.create(:roulette, number_drawn: 13) }
+      expect(Roulette.underdog(depth: 7).length).to eql(0)
       
-      1.upto(6) { FactoryBot.create(:roulette, number_drawn: 13) }
+      5.times { FactoryBot.create(:roulette, number_drawn: 13) }
       expect(Roulette.underdog(depth: 7)).to include(:third_12)
        
-      1.upto(6) { FactoryBot.create(:roulette, number_drawn: 26) }
+      3.times { FactoryBot.create(:roulette, number_drawn: 26) }
       expect(Roulette.underdog(depth:3)).to include(:first_12)  
+      
+      1.times { FactoryBot.create(:roulette, number_drawn: 2) }
+      expect(Roulette.underdog(depth:3)).to include(:second_12)  
+      
+      1.times { FactoryBot.create(:roulette, number_drawn: 13) }
+      expect(Roulette.underdog(depth:3).length).to eql(0)   
+    end
+    
+    it 'should return [] unless min_draws' do
+      binding.pry
+      expect(Roulette.underdog(depth:3).length).to eq(0) 
+      1.times { FactoryBot.create(:roulette, number_drawn: 13) }
     end
   end
 end

@@ -8,14 +8,12 @@ class Roulette < ApplicationRecord
       n <= 12
     end
     alias_method :low?, :first_12_win?
-
     
     def second_12_win?(n)
       n > 12 && n < 25 
     end
     alias_method :middle?, :second_12_win?
-    
-    
+      
     def third_12_win?(n)
       n > 24
     end
@@ -25,9 +23,12 @@ class Roulette < ApplicationRecord
       NUMBERS[rand(NUMBERS.length)]
     end
     
-    def underdog(depth: 7)
-      underdogs = []
+    def underdog(depth: 5, min_draws: 5)
+      return [] if Roulette.count < min_draws
+      underdogs = [] 
       lb = Roulette.select(:number_drawn).last(depth).pluck(:number_drawn)
+      return [] if lb.length < depth
+      
       [:first_12, :second_12,:third_12].map do |m|
         if (lb.detect{|n| send(:"#{m}_win?", n)}).blank?      
           underdogs << m
@@ -40,6 +41,5 @@ class Roulette < ApplicationRecord
   def draw
     number_drawn = Roulette.draw_number
   end
-
 
 end
