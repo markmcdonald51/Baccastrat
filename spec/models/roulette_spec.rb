@@ -58,11 +58,31 @@ RSpec.describe Roulette, type: :model do
     end
     
     it 'should return [] unless min_draws' do
-      binding.pry
       expect(Roulette.underdog(depth:3).length).to eq(0) 
       1.times { FactoryBot.create(:roulette, number_drawn: 13) }
     end
+
+    it 'should' do
+      5.times { create(:roulette, number_drawn: Roulette.draw_number ) 
+        puts "#{n}] #{test.number_drawn}"  
+      }
+      # Baccarat FUTURE SYSYTEM
+      #   Bet on the second tie (which should come soon after the first).
+      #   After the secons tie with for third and repeat.
+      
+      # Bet 50 when 
+      
+      # Methods to create in gambling module
+      #  - last_three_underdog
+      #  - ride_the_streak
+      #  - up_the_bet
+      #   - add_a_unit
+      #   - ride_the_elevator (down)
+      
+      
+    end
   end
+  
 end
 
 
