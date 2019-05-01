@@ -63,9 +63,11 @@ RSpec.describe Roulette, type: :model do
     end
 
     it 'should' do
-      5.times { create(:roulette, number_drawn: Roulette.draw_number ) 
-        puts "#{n}] #{test.number_drawn}"  
-      }
+      5.times do |n|
+        test = create(:roulette, number_drawn: Roulette.draw_number ) 
+        Roulette.underdog(depth:5,  min_draws: 5)
+        puts "#{n}] #{test.number_drawn}" 100
+      end
       # Baccarat FUTURE SYSYTEM
       #   Bet on the second tie (which should come soon after the first).
       #   After the secons tie with for third and repeat.
@@ -76,9 +78,17 @@ RSpec.describe Roulette, type: :model do
       #  - last_three_underdog
       #  - ride_the_streak
       #  - up_the_bet
-      #   - add_a_unit
+      #   - add_a_unit (up_a_unit)
       #   - ride_the_elevator (down)
-      
+      #   - crossover (change from banker to player) or black to white...
+      #   - stern_method
+      #### BETTING
+      #  - add_a_unit
+      #  - martingale
+      #  - double
+        
+      ## Parameters
+      #  set_goal (target amount to win)
       
     end
   end
