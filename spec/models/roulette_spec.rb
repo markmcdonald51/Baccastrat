@@ -74,6 +74,9 @@ RSpec.describe Roulette, type: :model do
       
       # Bet 50 when 
       
+      # Strategies
+      #   RampUp
+      
       # Methods to create in gambling module
       #  - last_three_underdog
       #  - ride_the_streak
@@ -86,6 +89,10 @@ RSpec.describe Roulette, type: :model do
       #  - add_a_unit
       #  - martingale
       #  - double
+      #   - house_way (up 2 units each win)
+      #     example -- follow house way, then martingale when your losing
+      
+      # Stop Loss [ex. 4 loses in a row]      
         
       ## Parameters
       #  set_goal (target amount to win)

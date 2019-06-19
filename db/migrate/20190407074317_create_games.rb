@@ -10,6 +10,7 @@ class CreateGames < ActiveRecord::Migration[5.2]
       t.string :bet_position
       t.string :bet_result
       t.string :winner, index: true 
+      t.integer :bet_aim_count
       t.references :simulation, foreign_key: true
 
       #t.timestamps

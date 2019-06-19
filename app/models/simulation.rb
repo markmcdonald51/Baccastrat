@@ -53,18 +53,46 @@ class Simulation < ApplicationRecord
     return oppsite(dominant)
   end
   
+  def advanced_inversion_method #  AIM
+    # P B P          B P B 
+    # P        or        B
+    # P                  B
+    max_aim_loss = 3
+    aim_hash = {bet_position: nil, 
+                bet_sequence: 0}
+    
+    ud = current_underdog
+    last_game = games.last(1)
+    ud_seq, ud_hsh = game_score(limit: 4) 
+    if (ud_seq[1] == ud or ud_seq.reverse[1] == ud)
+    
+      bet_aim_count = 1
+      aim_hash = {bet_position: ud, 
+                  last_game.bet_aim_count + 1, 
+                  bet_sequence: 1}
+                  
+    elsif position_on_a_run and 
+      last_game.bet_aim_count > max_aim_loss and 
+      last_game.winner == false
+      
+      aim_hash = {bet_position: ud, 
+        bet_sequence: last_game.bet_aim_count + 1,
+        bet_aim_count:last_game.bet_aim_count + 1  }      
+    end 
+    return aim_hash
+  end
   def oppsite(position)
     return 'P' if position == 'B'
     return 'B'
   end
   
-  def position_on_a_run
-    ud_seq, ud_hsh = game_score
-    return ud_seq.first if ud_hsh.values.detect{|v| v == 3 }   
+  def position_on_a_run(min: 3)
+    ud_seq, ud_hsh = game_score(limit: 4)
+    return ud_seq.first if ud_hsh.values.detect{|v| v == min}   
   end
   
-  def game_score
-    ud = games.where.not(winner: 'T').order(id: :desc).limit(3) #.group(:winner).count
+  def game_score(limit: 3)
+    ud = games.where.not(winner: 'T').order(id: :desc).limit(limit) #.group(:winner).count
     ud_hsh = ud.map{|o| o.winner}.each_with_object(Hash.new(0)) { |n,h| h[n] += 1 }
     ud_seq = ud.pluck(:winner)
     return [ud_seq, ud_hsh]

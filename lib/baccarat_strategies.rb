@@ -27,6 +27,11 @@ module BaccaratStrategies
 =end  
 
 
+  def aim_system(game)
+  
+  end
+
+
   def easy_baccarat(game) 
     s = game.simulation
     g = game

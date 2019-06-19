@@ -68,10 +68,35 @@ RSpec.describe Simulation, type: :model do
       
       simulation.games << [build(:game, :player_win,:bet_result_lose),
          build(:game, :banker_win,:bet_result_lose), build(:game, :banker_win,:bet_result_lose)]
-       
-        
-      expect(simulation.martingale_wager).to eq(simulation.unit_cost * 2)
-                 
+            
+      expect(simulation.martingale_wager).to eq(simulation.unit_cost * 2)               
     end
   end  
+  
+  it 'should do AIM' do
+    simulation.games << [build(:game, :banker_win,:bet_result_win), 
+        build(:game, :banker_win, :bet_result_win), build(:game, :player_win, :bet_result_win)]
+  
+  
+    simulation.games << [build(:game, :banker_win, :bet_result_win), 
+      build(:game, :banker_win,:bet_result_win),
+      build(:game, :player_win,:bet_result_win)]
+      
+    simulation.games << [build(:game, :banker_win,:bet_result_win)]
+    
+    aim_hsh = simulation.advanced_inversion_method
+    binding.pry
+    
+    expect(aim_hsh[:bet_position]).to eq('P')
+    expect(aim_hsh[:bet_sequence]).to eq(1)
+    
+    #simulation.games << [build(:game, :banker_win,:bet_result_win)]
+    
+    #aim_hsh = simulation.advanced_inversion_method
+    
+   
+    
+       
+  end
+  
 end

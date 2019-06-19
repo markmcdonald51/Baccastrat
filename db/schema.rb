@@ -22,6 +22,7 @@ ActiveRecord::Schema.define(version: 2019_04_28_072420) do
     t.string "bet_position"
     t.string "bet_result"
     t.string "winner"
+    t.integer "bet_aim_count"
     t.integer "simulation_id"
     t.index ["simulation_id"], name: "index_games_on_simulation_id"
     t.index ["winner"], name: "index_games_on_winner"
